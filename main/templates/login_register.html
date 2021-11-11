@@ -1,0 +1,134 @@
+
+{% load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<style type="text/css">
+    body{
+        margin: 0;
+        padding: 0;
+        background-image: url('../../static/images/3.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+        background-position: center;
+        font-family: sans-serif;
+    }
+    .login-box{
+        width: 300px;
+        height: 420px;
+        background: grey;
+        color: #fff;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        box-sizing: border-box;
+        padding: 70px 30px;
+        border-radius: 10px;
+    }
+    .avatar{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: -50%;
+        left: calc(50% -50%);
+    }
+    h1{
+        margin: 0;
+        padding: 0 0 20px;
+        text-align: center;
+        font-size: 22px;
+    }
+    .login-box p{
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+    }
+    .login-box input{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .login-box input[type="text"], input[type="password"]{
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: transparent;
+        outline: none;
+        height: 40px;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 2px;
+        padding-left: 10px;
+    }
+    .login-box input[type="submit"]{
+        border: none;
+        outline: none;
+        height: 40px;
+        background: #1c8adb;
+        color: #fff;
+        font-size: 18px;
+        border-radius: 20px;
+    }
+    .login-box input[type="submit"]:hover{
+        cursor: pointer;
+        background: #39dc79;
+        color: #000;
+    }
+    .login-box a{
+        text-decoration: none;
+        font-size: 14px;
+        color: #fff;
+    }
+    .login-box a:hover{
+        color: #39dc79;
+    }
+
+</style>
+<body>
+
+    <div class="login-box">
+        <img src="{% static 'images/13.jpg' %}" class="avatar">
+
+        <h1>Login Here</h1>
+             {% if page == 'login' %}
+             
+        <form method="post">
+
+ {% csrf_token %}
+       
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                </div>
+                <input type="submit" name="submit" value="Login">
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                <p style="color: orange;">Don't have an account?<a href="{% url 'register' %}">Register</a></p>            
+        </form>
+           {% else %}
+            <form method='post'>
+                <h1>Register</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p>Already have an account <a href="{% url 'login' %}">Login</a></p>
+
+            </form>
+            {% endif %}
+    </div>
+
+</body>
+</html>
+

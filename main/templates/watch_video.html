@@ -1,0 +1,131 @@
+{% extends 'index.html' %}
+
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5/css/bootstrap.css' %}">
+</head>
+<style type="text/css">
+  .video{
+    margin-top: 70px;
+  }
+  .videos{
+    width: 750px;
+    height: 400px;
+  }
+  .next{
+    /*margin-top: 0px !important;*/
+    margin-left: 830px !important;
+    width: 400px;
+  }
+  .container{
+    /*position: absolute;*/
+    /*left: 60px;*/
+  }
+  .upnext{
+    width: 320px; 
+    height: 200px;
+  }
+  @media screen and (max-width: 768px){
+    .video{
+      margin-top: 40px !important;
+    }
+    video{
+      padding-left: 30px !important;
+      width: 390px !important;
+      height: 350px !important;
+    }
+    .upnext{
+      width: 320px !important;
+      height: 260px !important;
+    }
+    .next{
+      margin-left: 5px !important;
+      /*margin-top: 400px !important;*/
+    }
+    .card{
+      display: none !important;
+    }
+    .container{
+     /* background-color: grey !important;*/
+    }
+    .posts{
+      /*margin-right: 0px !important;*/
+      background: grey !important;
+      position: fixed !important;
+      z-index: 9 !important;
+    }
+  }
+</style>
+<body>
+
+<div class="row video">
+  <div class="col-8">
+    <div class="container py-2 my-4 w-auto">
+      <div class="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner posts">
+          <div class="carousel-item active">
+            <video class="videos" controls="" autoplay="false">
+              <source src="{{post.post.url}}" type="video/mp4">
+            </video>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div class="card w-auto">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <div class="row">
+            <div class="col-8">
+              <span class="text-muted">Posted on • {{post.created}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="card my-2">
+          <div class="card-header">
+            <h6><b>DESCRIPTION</b></h6>
+          </div>
+          <div class="card-body">
+            <pre><p>{{post.description}}</p></pre>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+  <div class="col-3 next" style="margin-left: 0px; width: 400px;">
+      <div class="container my-3">
+        <h3>Up Next</h3>
+        <div class="list-group my-2">
+          {% for v in net %}
+          <a href="{% url 'watch' v.id %}" class="list-group-item list-group-item-action" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              
+              <video class="upnext" controls="">
+                <source src="{{v.post.url}}" type="video/mp4">
+              </video>
+
+              <!-- <source src="{{v.post.url}}" type="video/mp4"> -->
+              <!-- <img src="{{ v.thumbnail.url }}" class="w-100"> -->
+            </div>
+            <h5 class="mb-1">• {{v.title}}</h5>
+            <small>Donec id elit non mi porta.</small>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>  
+
+
+
+
+
+</body>
+</html>
+{% endblock%}

@@ -1,0 +1,137 @@
+{% extends 'index.html' %}
+
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5/css/bootstrap.css' %}">
+</head>
+<style type="text/css">
+.videos{
+	width: 750px;
+	height: 400px;
+}
+.next-video{
+	width: 320px;
+	height: 200px;
+}
+.next{
+	width: 420px;
+}
+h2{
+	display: none;
+}
+  @media screen and (max-width: 768px){
+  	.videos{
+  		margin-left: 30px !important;
+  		height: 300px !important;
+  		width: 350px !important;
+  	}
+  	.col-8{
+
+  		z-index: 9;
+  		width: 500px !important;
+  		position: fixed;
+  		/*background-color: green !important;*/
+  	}
+  	.my-girl{
+  		background-color: whitesmoke; !important;
+  		margin-top: 60px !important;
+  		position: fixed;
+  		width: 600px !important;
+  	}
+  	h3{
+  		display: none;
+  	}
+  	.card{
+  		display: none;
+  	}
+  	.next{
+  		margin-top: 400px;
+  	}
+  	h2{
+  		display: block !important;
+  		/*z-index: 9;*/
+  		margin-left: 30px !important;
+  		font-weight: bold;
+  		/*margin-top: 400px !important;*/
+  	}
+  	.col-3{
+  		padding-top: 40px !important;
+  	}
+  }	
+</style>
+<body>
+	<div class="row">
+		<div class="col-8">
+			<div class="container py-2 my-4 w-auto  my-girl" >
+				<div class="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<video class="videos" controls="" autoplay="false">
+								<source src="{{post.post.url}}" type="video/mp4">
+							</video>
+							<hr>
+						</div>
+					</div>
+				</div>
+				<div class="card w-auto">
+					<div class="card-body">
+						<h5 class="card-title">{{post.title}}</h5>
+						<div class="row">
+							<div class="col-8">
+								<span class="text-muted">Posted on • {{post.created}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card my-2">
+					<div class="card-header">
+						<h6><b>DESCRIPTION</b></h6>
+					</div>
+					<div class="card-body">
+						<pre><b>{{post.description}}</b></pre>
+					</div>
+				</div>
+				  <h2>Up Next</h2>
+			</div> 
+		</div>
+		
+		<div class="col-3 next">
+			<div class="container my-3">
+				<h3>Up Next</h3>
+				<div class="list-group my-2">
+					{% for v in net %}
+					{% if v.membership_type != 'Premium' %}
+					<a href="{% url 'watch' v.id %}" class="list-group-item list-group-item-action" aria-current="true">
+						<div class="d-flex w-100 justify-content-between">
+							<video class="next-video" controls="">
+								<source src="{{v.post.url}}" type="video/mp4">
+							</video>
+						</div>
+						<h5 class="mb-1">• {{v.title}}</h5>
+						<button type="button" class="btn btn btn-success">{{v.membership_type}}</button>
+						<small>Donec id elit non mi porta.</small>
+					</a>
+					{% else %}
+					<a href="{%  url 'join' %}" class="list-group-item list-group-item-action" aria-current="true" style="text-decoration: none;">
+						<div class="d-flex w-100 justify-content-between">
+							<video class="next-video">
+								<source src="{{v.post.url}}" type="video/mp4" class="w-100">
+							</video>
+						</div>
+						<h5 class="mb-1">• {{v.title}}</h5>
+                        <button type="button" class="btn btn btn-primary">{{v.membership_type}}</button>   
+                    </a>  
+                    {% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+{% endblock %}

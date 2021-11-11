@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block body %}
+<!--     <div class="container-fluid">
+      <div class="card bg-light text-white">
+        <img src="{% static 'img/bg2.jpeg' %}" class="card-img" style="height: 350px;" alt="...">
+        <div class="card-img-overlay">
+          <h2 style="margin-top: 150px; margin-left: 350px;">Viral Your Video Here and get more audience</h2>
+        </div>
+      </div>
+    </div> -->
+<style type="text/css">
+  .container{
+    margin-top: 70px;
+    padding-left: 0px;
+    margin-left: 70px !important;
+    font-size: 10px;
+  }
+  .col-4{
+    /*padding-left: 10px !important;*/
+    margin-left: 0px !important;
+  }
+  .homevideos{
+    width: 350px;
+    height: 250px;
+  }
+  .cow {
+    font-size: 10px;
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x) / -2);
+    margin-left: calc(var(--bs-gutter-x) / -2);
+}
+.girl{
+  margin-top:60px;
+  padding-left: 30px;
+
+}
+  @media screen and (max-width: 768px){
+    .girl{
+      padding-left: 5px !important;
+    }
+    .btn{
+      margin-left: 50px !important;
+    }
+    .container-fluid{
+        /*width: 10% !important;*/
+        /*height: 100px !important;*/
+        /*background-color: #e5edf1;*/
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+    }  
+    .row{
+      text-align: center;
+      /*margin-left: 10px !important;*/
+      width: 100px !important;
+      margin-left: 0px !important;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    }  
+    .homevideos{
+      /*text-align: center;*/
+      margin-left: 50px !important;
+      width: 300px !important;
+      height: 200px !important;
+    }
+    .kahii{
+      text-align: center;
+      flex: 1 0 0% !important;
+    }
+    .card {
+      margin-left: 10px !important;
+  position: absolute !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  word-wrap: break-word !important;
+  background-color: #fff !important;
+  background-clip: border-box !important;
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-radius: 0.25rem !important;
+}
+  }
+</style>
+    <div class="container-fluid girl">
+      <div class="row my-4" class="card">
+
+        {% for video in all_videos %}
+        <div class="col-4 kahii">
+          {% if video.membership_type != 'Premium' %}
+          <a href="{% url 'watch' video.id %}" style="text-decoration: none;">
+            <video class="homevideos" controls="" >
+              <source src="{{video.post.url}}" type="video/mp4" class="w-100">
+            </video>     
+            <br>
+            <button type="button" class="btn btn btn-success">{{video.membership_type}}</button>
+          </a>
+
+          {% else %}
+          <a href="{% url 'join' %}" style="text-decoration: none;">
+            <video class="homevideos"  >
+              <source src="{{video.post.url}}" type="video/mp4" class="w-100">
+            </video>  
+            <button type="button" class="btn btn btn-primary">{{video.membership_type}}</button>   
+          </a>          
+         
+          {% endif %}
+ 
+          <!-- <span class="text-muted">{{video.membership_type}} • {{video.created}}</span> -->
+
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}    
