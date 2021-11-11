@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-# import django_heroku
+import django_heroku
 
 
 
@@ -137,4 +137,4 @@ sentry_sdk.init(
     dsn='https://6c4aee19c2f24687885882e015c9de13@sentry.io/1777995',
     integrations=[DjangoIntegration()]
 )
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
